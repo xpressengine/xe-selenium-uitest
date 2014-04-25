@@ -1,0 +1,14 @@
+{
+	"require" : {
+		"phpunit/phpunit": "4.0.*",
+		"element-34/php-webdriver": "dev-master",
+		"phpseclib/phpseclib": "dev-master",
+		"illuminate/database": "*"
+	},
+
+	"autoload" : {
+		"psr-4" : {
+			"XE\\" : "src/XE"
+		}
+	}
+}

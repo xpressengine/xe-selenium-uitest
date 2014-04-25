@@ -1,0 +1,4 @@
+composer.lock
+/vendor
+/src/XE/UITest/Selenium/config.php
+/src/XE/UITest/Selenium/files

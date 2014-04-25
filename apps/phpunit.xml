@@ -1,0 +1,15 @@
+<phpunit
+	>
+	<testsuites>
+		<testsuite>
+			<file>InstallTest.php</file>
+			<file>AdminTest.php</file>
+			<file>MemberTest.php</file>
+			<file>BoardTest.php</file>
+			<file>EndTest.php</file>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<log type="junit" target="./logfile.xml" logIncompleteSkipped="false"/>
+	</logging>
+</phpunit>
