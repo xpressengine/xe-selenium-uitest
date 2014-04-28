@@ -5,6 +5,7 @@
 * `git clone` this repository
 * `composer install`
 	- [composer](https://getcomposer.org/)
+	- [composer 참고](http://www.slideshare.net/jhyeon1010/composer-34015227)
 * copy `src/XE/UITest/Selenium/config.sample.php` to `src/XE/UITest/Selenium/config.php` and edit.
 * make directory to `src/XE/UITest/Selenium/files` and set permission to 707
 
