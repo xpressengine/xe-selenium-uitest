@@ -22,6 +22,7 @@ return array(
 		'port' => '4444',
 		'path' => '/wd/hub',
 		'browser' => 'firefox',	//firefox, chrome, ie, internet explorer, opera, htmlunit, htmlunitjs, iphone, ipad, android
+
 	),
 
 	'TARGET_SERVER' => array(
@@ -30,6 +31,7 @@ return array(
 		'ssh_userid' => 'your id ',
 		'ssh_password' => 'your password',
 		'ssh_port' => "22",
+		'pageMoveSleepTime'=>2,
 	),
 
 	'XE_INFO' => array(
@@ -116,5 +118,9 @@ return array(
 		),
 	),
 
+	'XE_CAFE' => array(
+		'title' => '카페1',
+		'vid' => 'cafe1',
+	),
 );
 
