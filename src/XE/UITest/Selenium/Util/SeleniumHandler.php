@@ -3,7 +3,7 @@ namespace XE\UITest\Selenium\Util;
 
 /**
   * @file SeleniumHandler.php
-  * @brief Config Loader 
+  * @brief SeleniumHandler 
   * @author NAVER (developers@xpressengine.com)
   * @see \PHPWebDriver_WebDriver \n
   *        https://github.com/Element-34/php-webdriver
@@ -142,6 +142,22 @@ class SeleniumHandler
     }
 
     /**
+      * @brief select element에 option 선택
+      * @param string $selector
+      * @param string $strSelector
+      * @param string $value
+      * @return void
+      */
+    public function setSelect($selector, $strSelector, $value)
+    {
+        $e = self::$_session->element($selector, $strSelector);
+        $opts = $e->elements('css selector', 'option[value='.$value.']');
+        if (count($opts)>0) {
+            $opts[0]->click();
+        }
+    }
+
+    /**
       * @brief 페이지 이동
       * @param string @path 이동 경로
       * @return void
@@ -154,6 +170,22 @@ class SeleniumHandler
 
         $url = sprintf("%s%s", $this->getUrl(), $path);
         self::$_session->open($url);
+
+        $this->_pageMoveCompleteWait();
+    }
+
+    /**
+      * @brief 이동 후 페이지 load 가 완료되기를 기다림. 사용할 수 있는 이벤트가 없기 때문에 sleep 으로 처리함
+      * @return void
+      */
+    private function _pageMoveCompleteWait()
+    {
+        $sleepTime = 2;
+        if (isset($this->args['pageMoveSleepTime'])) {
+            $sleepTime = $this->args['pageMoveSleepTime'];
+        }
+
+        sleep($sleepTime);
     }
 
     /**
@@ -239,10 +271,51 @@ class SeleniumHandler
             "selector" => $selector,
             "strSelector" => $strSelector,
         );
-        $w = new \PHPWebDriver_WebDriverWait(self::$_session, $timeout, $poll_frequencyn, $extra_vars);
+        $w = new \PHPWebDriver_WebDriverWait(self::$_session, $timeout, $poll_frequency, $extra_vars);
         try {
             return $w->until(function ($session, $extra_vars) {
                 return count($session->elements($extra_vars['selector'], $extra_vars['strSelector']));
+            });
+        } catch (\PHPWebDriver_TimeOutWebDriverError $e) {
+            return 0;
+        }
+    }
+
+    /**
+      * @brief session(윈도우)에 element 의 css 속성이 원하는 상태가 될때까지 기다림 
+      * @param string $selector
+      * @param string $strSelector
+      * @param string $expect 'displayed', 'css', ...
+      * @param int $timeout 기다리는 시간(초)
+      * @param float $poll_frequency 주기적으로 확인하는 시간(초)
+      * @return int
+      */
+    public function waitElementExpect($selector, $strSelector, $expect, $timeout = 30, $poll_frequency = 0.5)
+    {
+        $extra_vars = array(
+            "selector" => $selector,
+            "strSelector" => $strSelector,
+            "expect" => $expect,
+        );
+        $w = new \PHPWebDriver_WebDriverWait(self::$_session, $timeout, $poll_frequency, $extra_vars);
+        try {
+            return $w->until(function ($session, $extra_vars) {
+                $e = $session->elements($extra_vars['selector'], $extra_vars['strSelector']);
+                if (count($e)==0) {
+                    return 0;
+                }
+                $element = $e[0];
+                switch ($extra_vars['expect']) {
+                    case 'displayed':
+                        if ($element->displayed()) {
+                            return 1;
+                        }
+                        break;
+                    default:
+                        return 0;
+                        break;
+                }
+                return 0;
             });
         } catch (\PHPWebDriver_TimeOutWebDriverError $e) {
             return 0;
