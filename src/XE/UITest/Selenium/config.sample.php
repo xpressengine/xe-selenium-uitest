@@ -121,6 +121,16 @@ return array(
 	'XE_CAFE' => array(
 		'title' => '카페1',
 		'vid' => 'cafe1',
+		'user' => array(
+				'email' => 'cafe1@test.com',
+				'password' => 'test1234',
+				'id' => 'cafe1',
+				'name' => 'cafe1name',
+				'nickname' => 'cafe1nickname',
+				'find_question' => '2',
+				'find_answer' => '11',
+			),
+
 	),
 );
 

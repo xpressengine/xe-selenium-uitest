@@ -23,7 +23,7 @@ class CafeTest extends \PHPUnit_Framework_TestCase
     public static function tearDownAfterClass()
     {
         $oAdmin = AdminLoader::getInstance();
-        //$oAdmin->oSelenium->close();
+        $oAdmin->oSelenium->close();
     }
 
     /**
