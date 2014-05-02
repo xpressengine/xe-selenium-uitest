@@ -38,6 +38,20 @@ abstract class ManagerAbstract
     }
 
     /**
+      * @brief 경고 메시지 창이 노출되어 있는지 확인 
+      * @return boolean
+      */
+    public function checkMessageAlert()
+    {
+        $arrElements = $this->oSelenium->elements('css selector', '#content #access');
+        if (count($arrElements) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
       * @brief Selenium 에서 screen shot 을 가져와 저장 할 때 경로
       * @return string
       */
