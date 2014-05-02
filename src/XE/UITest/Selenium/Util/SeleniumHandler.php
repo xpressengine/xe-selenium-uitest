@@ -102,6 +102,7 @@ class SeleniumHandler
         }
 
         self::$_session = $this->_driver->session($browser, $args);
+        self::$_session->window()->maximize();
         $this->setUrl($args['url']);
     }
 
@@ -145,15 +146,25 @@ class SeleniumHandler
       * @brief select element에 option 선택
       * @param string $selector
       * @param string $strSelector
-      * @param string $value
+      * @param string $match want select infomation
+      * @param string $match_type 
       * @return void
       */
-    public function setSelect($selector, $strSelector, $value)
+    public function setSelect($selector, $strSelector, $match, $match_type = 'value')
     {
         $e = self::$_session->element($selector, $strSelector);
-        $opts = $e->elements('css selector', 'option[value='.$value.']');
-        if (count($opts)>0) {
-            $opts[0]->click();
+        if ($match_type == 'value') {
+            $opts = $e->elements('css selector', 'option[value="'.$match.'"]');
+            if (count($opts)>0) {
+                $opts[0]->click();
+            }
+        } elseif ($match_type == 'text') {
+            $opts = $e->elements('css selector', 'option');
+            foreach ($opts as $opt) {
+                if ($opt->text() == $match) {
+                    $opt->click();
+                }
+            }
         }
     }
 
@@ -184,7 +195,6 @@ class SeleniumHandler
         if (isset($this->args['pageMoveSleepTime'])) {
             $sleepTime = $this->args['pageMoveSleepTime'];
         }
-
         sleep($sleepTime);
     }
 

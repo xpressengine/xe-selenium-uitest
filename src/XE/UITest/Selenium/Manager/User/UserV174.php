@@ -17,7 +17,6 @@ class UserV174 extends ManagerAbstract implements UserInterface
       */
     public function signup($memberInfo)
     {
-        $this->oSelenium->pageMove('/index.php?act=dispMemberSignUpForm');
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="email_address"]', $memberInfo['email']);
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="password"]', $memberInfo['password']);
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="password2"]', $memberInfo['password']);
@@ -25,7 +24,7 @@ class UserV174 extends ManagerAbstract implements UserInterface
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="user_name"]', $memberInfo['name']);
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="nick_name"]', $memberInfo['nickname']);
 
-        $this->oSelenium->element('css selector', '#fo_insert_member select[name="find_account_question"]')->selected($memberInfo['find_question']);
+        $this->oSelenium->setSelect('css selector', '#fo_insert_member select[name="find_account_question"]', $memberInfo['find_question']);
 
         $this->oSelenium->setValue('css selector', '#fo_insert_member input[name="find_account_answer"]', $memberInfo['find_answer']);
 
@@ -40,6 +39,7 @@ class UserV174 extends ManagerAbstract implements UserInterface
     {
         $config = $this->oConfig->getConfig();
         foreach ($config['XE_MEMBER'] as $memberInfo) {
+            $this->oSelenium->pageMove('/index.php?act=dispMemberSignUpForm');
             $this->signup($memberInfo);
             $this->logout($session);
         }

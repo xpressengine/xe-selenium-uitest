@@ -58,7 +58,7 @@ abstract class ConfigLoaderAbstract
       */
     public function getTargetServer()
     {
-        return $this->config['TARGET_SERVER'];
+        return $this->_config['TARGET_SERVER'];
     }
 
     /**
@@ -67,7 +67,7 @@ abstract class ConfigLoaderAbstract
       */
     public function getDatabase()
     {
-        return $this->config['DATABASE'];
+        return $this->_config['DATABASE'];
     }
 
     /**
@@ -122,6 +122,15 @@ abstract class ConfigLoaderAbstract
     public function getMember()
     {
         return $this->_config['XE_MEMBER'];
+    }
+
+    /**
+      * @brief get Cafe config
+      * @return array
+      */
+    public function getCafe()
+    {
+        return $this->_config['XE_CAFE'];
     }
 
     /**

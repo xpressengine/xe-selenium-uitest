@@ -6,6 +6,7 @@
 			<file>AdminTest.php</file>
 			<file>MemberTest.php</file>
 			<file>BoardTest.php</file>
+			<file>CafeTest.php</file>
 			<file>EndTest.php</file>
 		</testsuite>
 	</testsuites>
