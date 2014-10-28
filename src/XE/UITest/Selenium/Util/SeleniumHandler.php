@@ -126,7 +126,6 @@ class SeleniumHandler
       */
     public function elements($selector, $strSelector)
 	{
-		$this->waitElement($selector, $strSelector);
         return self::$_session->elements($selector, $strSelector);
     }
 
