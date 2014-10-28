@@ -114,6 +114,7 @@ class SeleniumHandler
       */
     public function element($selector, $strSelector)
     {
+		$this->waitElement($selector, $strSelector);
         return self::$_session->element($selector, $strSelector);
     }
 
@@ -124,7 +125,8 @@ class SeleniumHandler
       * @return array
       */
     public function elements($selector, $strSelector)
-    {
+	{
+		$this->waitElement($selector, $strSelector);
         return self::$_session->elements($selector, $strSelector);
     }
 
@@ -137,7 +139,7 @@ class SeleniumHandler
       */
     public function setValue($selector, $strSelector, $value)
     {
-        $e = self::$_session->element($selector, $strSelector);
+		$e = $this->element($selector, $strSelector);
         $e->clear();
         $e->value(array('value'=>array($value)));
     }
@@ -152,7 +154,7 @@ class SeleniumHandler
       */
     public function setSelect($selector, $strSelector, $match, $match_type = 'value')
     {
-        $e = self::$_session->element($selector, $strSelector);
+		$e = $this->element($selector, $strSelector);
         if ($match_type == 'value') {
             $opts = $e->elements('css selector', 'option[value="'.$match.'"]');
             if (count($opts)>0) {
@@ -188,6 +190,7 @@ class SeleniumHandler
     /**
       * @brief 이동 후 페이지 load 가 완료되기를 기다림. 사용할 수 있는 이벤트가 없기 때문에 sleep 으로 처리함
       * @return void
+	  *	@deprecated page load 후 기다리지 않아도 오류발생하지 않도록 수정됨
       */
     private function _pageMoveCompleteWait()
     {
@@ -195,7 +198,7 @@ class SeleniumHandler
         if (isset($this->args['pageMoveSleepTime'])) {
             $sleepTime = $this->args['pageMoveSleepTime'];
         }
-        sleep($sleepTime);
+        //sleep($sleepTime);
     }
 
     /**
