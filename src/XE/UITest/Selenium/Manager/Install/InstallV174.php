@@ -325,6 +325,12 @@ class InstallV174 extends ManagerAbstract implements InstallInterface
         $this->oSelenium->element('id', 'task-db-select')->click();
     }
 
+    function licenseAgreement()
+    {
+      $this->oSelenium->element('name', 'license_agreement')->click();
+      $this->oSelenium->element('id', 'task-license-aggrement')->click();
+    }
+
     /**
       * @brief Database 정보 입력
       * @return void

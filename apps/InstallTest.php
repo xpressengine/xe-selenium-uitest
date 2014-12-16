@@ -41,7 +41,27 @@ class InstallTest extends \PHPUnit_Framework_TestCase
             $oInstall->setLanguage();
 
             // 다음 페이지 url 체크
-            $checkUrl = '/index.php?act=dispInstallCheckEnv';
+            $checkUrl = '/index.php?act=dispInstallLicenseAgreement';
+            $this->assertEquals($oInstall->oSelenium->getCurrentPath(), $checkUrl);
+        } catch (\Exception $e) {
+            $oInstall->setScreenshot();
+            throw $e;
+        }
+    }
+
+    /**
+      * @brief 라이선스 동의
+      * @return void
+      * @depends testInstallStep1
+      */
+    public function testInstallStep2()
+    {
+        try {
+            $oInstall = InstallLoader::getInstance();
+            $oInstall->licenseAgreement();
+
+            // 다음 페이지 url 체크
+            $checkUrl = '/index.php?module=admin&act=dispInstallCheckEnv';
             $this->assertEquals($oInstall->oSelenium->getCurrentPath(), $checkUrl);
         } catch (\Exception $e) {
             $oInstall->setScreenshot();
@@ -52,9 +72,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     /**
       * @brief 설치 조건 확인
       * @return void
-      * @depends testInstallStep1
+      * @depends testInstallStep2
       */
-    public function testInstallStep2()
+    public function testInstallStep3()
     {
         try {
             $oInstall = InstallLoader::getInstance();
@@ -72,9 +92,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     /**
       * @brief DB 선택
       * @return void
-      * @depends testInstallStep2
+      * @depends testInstallStep3
       */
-    public function testInstallStep3()
+    public function testInstallStep4()
     {
         try {
             $oInstall = InstallLoader::getInstance();
@@ -92,9 +112,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     /**
       * @brief DB 정보 입력
       * @return void
-      * @depends testInstallStep3
+      * @depends testInstallStep4
       */
-    public function testInstallStep4()
+    public function testInstallStep5()
     {
         try {
             $oInstall = InstallLoader::getInstance();
@@ -112,9 +132,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     /**
       * @brief 환경 설정
       * @return void
-      * @depends testInstallStep4
+      * @depends testInstallStep5
       */
-    public function testInstallStep5()
+    public function testInstallStep6()
     {
         try {
             $oInstall = InstallLoader::getInstance();
@@ -131,9 +151,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 
     /**
       * @biref 관리자 정보 입력
-      * @depends testInstallStep5
+      * @depends testInstallStep6
       */
-    public function testInstallStep6()
+    public function testInstallStep7()
     {
         try {
             $oInstall = InstallLoader::getInstance();
@@ -151,9 +171,9 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     /**
       * @brief 설치 완료, 로그인 된 사이트 메인 페이지
       * @return void
-      * @depends testInstallStep6
+      * @depends testInstallStep7
       */
-    public function testInstallStep7()
+    public function testInstallStep8()
     {
         try {
             $oInstall = InstallLoader::getInstance();
