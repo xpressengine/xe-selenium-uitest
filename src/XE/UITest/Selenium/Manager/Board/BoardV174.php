@@ -17,8 +17,8 @@ class BoardV174 extends ManagerAbstract implements BoardInterface
       */
     public function writeContent($content)
     {
-        $this->oSelenium->waitElement('css selector', '.xpress_xeditor_editing_area_container iframe');
-        $e = $this->oSelenium->element('css selector', '.xpress_xeditor_editing_area_container iframe');
+        $this->oSelenium->waitElement('css selector', '.cke_contents iframe');
+        $e = $this->oSelenium->element('css selector', '.cke_contents iframe');
         $this->oSelenium->switchToFrame($e);
         $e = $this->oSelenium->element('tag name', 'body');
         $e->click();
